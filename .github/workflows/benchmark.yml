@@ -1,0 +1,40 @@
+name: Scrypt Benchmark
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  benchmark:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Test scrypt configurations on Cloudflare
+        env:
+          BENCHMARK_KEY: ${{ secrets.BENCHMARK_KEY }}
+        run: |
+          if [ -z "$BENCHMARK_KEY" ]; then
+            echo "ERROR: BENCHMARK_KEY is missing."
+            exit 1
+          fi
+
+          URL="https://scrypt-benchmark.abdullahyuosefalhjry.workers.dev/"
+
+          for config in 4 3 2 1 0; do
+            echo "================================"
+            echo "Testing scrypt config=$config"
+            echo "================================"
+
+            curl -sS \
+              --connect-timeout 10 \
+              --max-time 60 \
+              -X POST \
+              -H "X-Benchmark-Key: $BENCHMARK_KEY" \
+              -w '\nHTTP_STATUS=%{http_code}\n' \
+              "$URL?config=$config"
+
+            echo ""
+            sleep 2
+          done
