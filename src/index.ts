@@ -1,3 +1,4 @@
+// Cloudflare deployment test - 2026-11-01
 import { scryptSync, randomBytes, timingSafeEqual } from "node:crypto";
 
 interface ScryptConfig {
