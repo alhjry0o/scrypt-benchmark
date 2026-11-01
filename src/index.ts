@@ -19,7 +19,7 @@ const CONFIGS: ScryptConfig[] = [
 
 // الحد الأقصى لخيار maxmem الممرر إلى scrypt.
 // هذا ليس حد ذاكرة Cloudflare Worker.
-const MAX_SCRYPT_MAXMEM_BYTES = 128 * 1024 * 1024;
+const MAX_SCRYPT_MAXMEM_BYTES = 160 * 1024 * 1024;
 
 // هامش إضافي فوق متطلب الذاكرة التقريبي 128*N*r.
 const MAXMEM_HEADROOM_BYTES = 32 * 1024 * 1024;
