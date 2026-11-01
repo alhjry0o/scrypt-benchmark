@@ -126,7 +126,14 @@ export default {
       completed = key.length === KEY_LEN;
 
     } catch (e: unknown) {
-      error = e instanceof Error ? e.message : String(e);
+      error = e instanceof Error
+       ? `${e.name}: ${e.message}\n${e.stack ?? ""}`
+       : String(e);
+
+      console.error("SCRYPT_BENCHMARK_ERROR", {
+        config: cfg.name,
+        error
+      });
 
     } finally {
       wallMs = Math.round(
